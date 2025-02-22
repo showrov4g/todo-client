@@ -1,49 +1,96 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useTask } from "../context/TaskContext";
+import { toast } from "react-toastify";
 
 const TaskForm = () => {
-  const {user, taskData, setTaskData, handleTask, editingTask } = useTask();
+  const { user, taskData, setTaskData, handleTask, editingTask,loading } = useTask();
+
+  useEffect(() => {
+    if (!editingTask) {
+      setTaskData((prev) => ({
+        ...prev,
+        timestamp: prev.timestamp || new Date().toISOString(),
+      }));
+    }
+  }, [editingTask, setTaskData]);
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!user?.email) {
+      return toast.error("please login first");
+    }
+    if (taskData.title.length > 50) {
+      return toast.error("Title must be 50 characters or less.");
+    }
+
+    if (taskData.description.length > 200) {
+      return toast.error("Description must be 200 characters or less.");
+    }
+
     handleTask();
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4 bg-white p-4 rounded shadow">
-      <input
-        type="text"
-        value={taskData.title}
-        onChange={(e) => setTaskData({ ...taskData, title: e.target.value })}
-        placeholder="Title"
-        className="border p-2 rounded"
-        required
-      />
-      <textarea
-        value={taskData.description}
-        onChange={(e) => setTaskData({ ...taskData, description: e.target.value })}
-        placeholder="Description"
-        className="border p-2 rounded"
-        required
-      ></textarea>
-      
-      {/* ✅ Category Selection Dropdown */}
-      <select
-        value={taskData.category || "Select one"}
-        onChange={(e) => setTaskData({ ...taskData, category: e.target.value })}
-        className="border p-2 rounded"
-        required
+    <div>
+      <div className="text-center">
+        <h1 className="text-4xl font-semibold capitalize">Add your Task</h1>
+      </div>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-wrap gap-4 bg-white p-4 "
       >
-        <option value="To-Do">To-Do</option>
-        <option value="In Progress">In Progress</option>
-        <option value="Done">Done</option>
-      </select>
+        <input
+          type="text"
+          value={taskData.title}
+          onChange={(e) =>
+            setTaskData({ ...taskData, title: e.target.value.slice(0, 50) })
+          }
+          placeholder="Title (Max 50 characters)"
+          className="border py-1 px-3.5 rounded"
+          maxLength={50}
+          required
+        />
 
-      <button type="submit" className="bg-blue-500 text-white p-2 rounded">
-        {editingTask ? "Update Task" : "Add Task"}
-      </button>
-    </form>
+        <textarea
+          value={taskData.description}
+          onChange={(e) =>
+            setTaskData({
+              ...taskData,
+              description: e.target.value.slice(0, 200),
+            })
+          }
+          placeholder="Description (Max 200 characters)"
+          className="border py-1 px-3.5 rounded"
+          maxLength={200}
+          required
+        ></textarea>
+
+        <select
+          value={taskData.category || "To-Do"}
+          onChange={(e) =>
+            setTaskData({ ...taskData, category: e.target.value })
+          }
+          className="border py-1 px-3.5 rounded"
+          required
+        >
+          <option value="To-Do">To-Do</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Done">Done</option>
+        </select>
+
+        <input
+          type="text"
+          value={taskData.timestamp}
+          className="border py-1 px-3.5 rounded bg-gray-100"
+          readOnly
+        />
+
+        <button type="submit" className="btn btn-primary text-white py-7  rounded">
+          {editingTask ? "Update Task" : "Add Task"}
+        </button>
+      </form>
+    </div>
   );
 };
 

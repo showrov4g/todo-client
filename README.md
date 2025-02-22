@@ -1,8 +1,10 @@
-# React + Vite
+# this is a To-do list maker application 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- this application a user can add his task and manage his task
 
-Currently, two official plugins are available:
+- this website make using react, tailwind, mongodb, Websocket, react-dnd for drag and drop, firebase for user login and hosting
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* here is website live link you can visit here 
+- <a href="https://todo-task-4d852.web.app/" target="_blank_>Click here for visit<a/>
+
+<img src="./public/full.png"/>

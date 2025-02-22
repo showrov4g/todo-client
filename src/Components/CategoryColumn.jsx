@@ -13,7 +13,7 @@ const CategoryColumn = ({ title, category }) => {
   });
 
   return (
-    <div ref={drop} className={`p-4 w-80 bg-gray-100 rounded shadow ${isOver ? "bg-blue-200" : ""}`}>
+    <div ref={drop} className={`p-4  bg-gray-100 rounded shadow ${isOver ? "bg-blue-200" : ""}`}>
       <h2 className="text-xl font-bold mb-4">{title}</h2>
       {tasks.filter((task) => task.category === category).map((task) => (
         <Task key={task._id} task={task} editTask={editTask} deleteTask={deleteTask} />
