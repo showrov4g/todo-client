@@ -5,13 +5,13 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBRE2u4nK3MdzIf2x7SiBxMBIqeM41OK_U",
-  authDomain: "todo-task-4d852.firebaseapp.com",
-  projectId: "todo-task-4d852",
-  storageBucket: "todo-task-4d852.firebasestorage.app",
-  messagingSenderId: "1068132881170",
-  appId: "1:1068132881170:web:01a39f18ee3034802ed9cb",
-  measurementId: "G-VWCBL2C0ER"
+  apiKey: import.meta.env.VITE_apiKey,  
+  authDomain: import.meta.env.VITE_authDomain, 
+  projectId: import.meta.env.VITE_projectId, 
+  storageBucket: import.meta.env.VITE_storageBucket, 
+  messagingSenderId: import.meta.env.VITE_messagingSenderId, 
+  appId: import.meta.env.VITE_appId, 
+  measurementId: import.meta.env.VITE_measurementId, 
 };
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
